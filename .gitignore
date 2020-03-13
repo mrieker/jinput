@@ -1,0 +1,4 @@
+*~
+*.class
+libjinput-*.so
+net_java_games_input_*.h
