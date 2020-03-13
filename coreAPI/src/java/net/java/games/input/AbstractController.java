@@ -156,6 +156,14 @@ public abstract class AbstractController implements Controller {
     }
 
     /**
+     * Returns the filename for this Controller.
+     * @return null by default, can be overridden
+     */
+    public String getFilename() {
+        return null;
+    }
+
+    /**
      * Returns a human-readable name for this Controller.
      */
     public final String getName() {

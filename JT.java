@@ -12,11 +12,11 @@ public class JT {
             Controller.Type ct = controller.getType ();
             {
                 System.out.println ("---------------");
-                System.out.println (controller.toString ());
                 System.out.println (controller.getName());
                 System.out.println (controller.getPortNumber ());
+                System.out.println (controller.getFilename());
                 System.out.println (ct.toString ());
-                System.out.println ("type=" + controller.getType().toString());
+                System.out.println (controller.getClass().getName());
                 System.out.println ("---------------");
             }
         }

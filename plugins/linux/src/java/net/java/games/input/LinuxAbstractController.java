@@ -71,4 +71,8 @@ final class LinuxAbstractController extends AbstractController {
 	public Type getType() {
 		return type;
 	}
+
+	public String getFilename () {
+		return device.getFilename ();
+	}
 }

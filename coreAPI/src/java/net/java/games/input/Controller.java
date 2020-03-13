@@ -111,6 +111,11 @@ public interface Controller {
     public abstract int getPortNumber();
 
     /**
+     * Returns the filename for this Controller.
+     */
+    public abstract String getFilename();
+
+    /**
      * Returns a human-readable name for this Controller.
      */
     public abstract String getName();

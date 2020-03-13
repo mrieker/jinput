@@ -25,6 +25,7 @@
  */
 package net.java.games.input;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ final class LinuxJoystickDevice implements LinuxDevice {
 
 	private final long fd;
 	private final String name;
+	private final String filename;
 
 	private final LinuxJoystickEvent joystick_event = new LinuxJoystickEvent();
 	private final Event event = new Event();
@@ -60,8 +62,10 @@ final class LinuxJoystickDevice implements LinuxDevice {
 	 */
 	private boolean closed;
 
-    public LinuxJoystickDevice(String filename) throws IOException {
-		this.fd = nOpen(filename);
+	public LinuxJoystickDevice(String filename) throws IOException {
+		File file = new File (filename);
+		this.filename = file.getAbsolutePath ();
+		this.fd = nOpen(this.filename);
 		try {
 			this.name = getDeviceName();
 			setBufferSize(AbstractController.EVENT_QUEUE_DEPTH);
@@ -73,7 +77,7 @@ final class LinuxJoystickDevice implements LinuxDevice {
 			close();
 			throw e;
 		}
-    }
+	}
 	private final static native long nOpen(String filename) throws IOException;
 
 	public final synchronized void setBufferSize(int size) {
@@ -239,6 +243,6 @@ final class LinuxJoystickDevice implements LinuxDevice {
 
 	@Override
 	public String getFilename() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return filename;
 	}
 }

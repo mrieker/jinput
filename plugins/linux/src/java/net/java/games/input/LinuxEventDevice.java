@@ -55,13 +55,15 @@ final class LinuxEventDevice implements LinuxDevice {
 	private final byte[] key_states = new byte[NativeDefinitions.KEY_MAX/8 + 1];
 	private String filename;
 	
-    public LinuxEventDevice(String filename) throws IOException {
+	public LinuxEventDevice(String filename) throws IOException {
+		File file = new File(filename);
+		this.filename = file.getAbsolutePath();
 		long fd;
 		boolean detect_rumblers = true;
 		try {
-			fd = nOpen(filename, true);
+			fd = nOpen(this.filename, true);
 		} catch (IOException e) {
-			fd = nOpen(filename, false);
+			fd = nOpen(this.filename, false);
 			detect_rumblers = false;
 		}
 		this.fd = fd;
@@ -78,9 +80,7 @@ final class LinuxEventDevice implements LinuxDevice {
 			close();
 			throw e;
 		}
-		File file = new File(filename);
-		this.filename = file.getName();
-    }
+	}
 	private final static native long nOpen(String filename, boolean rw) throws IOException;
 
 	public final Controller.Type getType() {
