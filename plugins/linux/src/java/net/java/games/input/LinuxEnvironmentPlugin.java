@@ -296,6 +296,19 @@ public final class LinuxEnvironmentPlugin extends ControllerEnvironment implemen
 	AccessController.doPrivileged(
 	    new PrivilegedAction() {
 		public final Object run() {
+                    String soname = System.getProperty ("net.java.games.input.soname");
+                    if (soname != null) {
+                        File sofile = new File (soname);
+                        String sopath = sofile.getAbsolutePath ();
+                        try {
+                            System.load (sopath);
+                        } catch (UnsatisfiedLinkError e) {
+                            logln("Failed to load library " + sopath + ": " + e.getMessage());
+                            e.printStackTrace();
+                            supported = false;
+                        }
+                        return null;
+                    }
 		    String lib_path = System.getProperty("net.java.games.input.librarypath");
 		    try {
 			if (lib_path != null)

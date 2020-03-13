@@ -1,2 +1,3 @@
 #!/bin/bash
-exec java -Djava.library.path=plugins/linux/src/native -cp .:coreAPI/src/java:plugins/linux/src/java "$@"
+arch=`uname -m`
+exec java -Dnet.java.games.input.soname=plugins/linux/src/native/libjinput-linux-$arch.so -cp .:coreAPI/src/java:plugins/linux/src/java "$@"
